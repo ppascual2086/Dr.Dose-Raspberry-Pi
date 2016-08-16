@@ -10,27 +10,22 @@ var board = new five.Board({
 
 var nano = new five.Board();
 
-nano.on('ready', function startNano() {
-    var acidpump = new five.Pin(10),
-        basepump = new five.Pin(9),
-        nutrientpump = new five.Pin(11);
-});
-
 // When board emits a 'ready' event run this start function.
 board.on('ready', function start() {
     // Declare variables and pins
     var pH_reading,
         pH_readings = [],
         eC_reading,
-        eC_readings = [];
+        eC_readings = [],
+        acidpump = new five.Pin('P1-11'),
+        basepump = new five.Pin('P1-12'),
+        nutrientpump = new five.Pin('P1-13');
 
     // Hack: Relays are inversed... make sure pumps are off.
     // Better hardware could take care of this... I'm not an electrical engineer.
     // acidpump.high();
     // basepump.high();
     // nutrientpump.high();
-
-    console.log(nano);
 
     // This must be called prior to any I2C reads or writes.
     // See Johnny-Five docs: http://johnny-five.io
