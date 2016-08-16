@@ -23,9 +23,9 @@ board.on('ready', function start() {
 
     // Hack: Relays are inversed... make sure pumps are off.
     // Better hardware could take care of this... I'm not an electrical engineer.
-    // acidpump.high();
-    // basepump.high();
-    // nutrientpump.high();
+    acidpump.high();
+    basepump.high();
+    nutrientpump.high();
 
     // This must be called prior to any I2C reads or writes.
     // See Johnny-Five docs: http://johnny-five.io
