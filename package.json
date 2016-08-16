@@ -1,5 +1,5 @@
 {
-  "name": "Dr.Dose-chip",
+  "name": "Dr.Dose-Raspberry-Pi",
   "version": "0.1.0",
   "description": "Dr. Dose keeps your pH balanced and your nutrients at ideal levels.",
   "main": "index.js",
@@ -12,6 +12,8 @@
   "dependencies": {
     "Grow.js": "^0.2.8",
     "ascii-codes": "^1.0.0",
-    "johnny-five": "^0.10.0"
+    "johnny-five": "^0.10.0",
+    "chip-io": "^2.0.0",
+    "raspi-io": "^6.1.0"
   }
 }

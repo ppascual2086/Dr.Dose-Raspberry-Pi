@@ -1,12 +1,11 @@
-// Import the grow.js library.
-var GrowInstance = require('Grow.js');
-var chipio = require('chip-io');
+var GrowInstance = require('Thing.js');
+var raspio = require('raspi-io');
 var five = require('johnny-five');
 var ascii = require('ascii-codes');
 
 // Create a new board object
 var board = new five.Board({
-  io: new chipio()
+  io: new raspio()
 });
 
 // When board emits a 'ready' event run this start function.
