@@ -14,10 +14,10 @@ board.on('ready', function start() {
     var pH_reading,
         pH_readings = [],
         eC_reading,
-        eC_readings = [];
-        // acidpump = new five.Pin(53),
-        // basepump = new five.Pin(54),
-        // nutrientpump = new five.Pin(55);
+        eC_readings = [],
+        acidpump = new five.Pin('P1-11'),
+        basepump = new five.Pin('P1-12'),
+        nutrientpump = new five.Pin('P1-13');
 
     // Hack: Relays are inversed... make sure pumps are off.
     // Better hardware could take care of this... I'm not an electrical engineer.
@@ -43,63 +43,63 @@ board.on('ready', function start() {
             state: null
         },
 
-        // // Actions are the API of the thing.
-        // actions: {
-        //     acid: {
-        //         name: 'Dose acid', // Display name for the action
-        //         duration: 2000,
-        //         event: 'Dosed acid',
-        //         function: function () {
-        //             acidpump.low();
+        // Actions are the API of the thing.
+        actions: {
+            acid: {
+                name: 'Dose acid', // Display name for the action
+                duration: 2000,
+                event: 'Dosed acid',
+                function: function () {
+                    acidpump.low();
 
-        //             var duration = Number(grow.get('duration', 'acid'));
-        //             setTimeout(function () {
-        //                 acidpump.high();
-        //             }, duration);
-        //         }
-        //     },
+                    var duration = Number(grow.get('duration', 'acid'));
+                    setTimeout(function () {
+                        acidpump.high();
+                    }, duration);
+                }
+            },
             
-        //     base: {
-        //         name: 'Dose base',
-        //         duration: 2000,
-        //         event: 'Dosed base',
-        //         function: function () {
-        //             basepump.low();
+            base: {
+                name: 'Dose base',
+                duration: 2000,
+                event: 'Dosed base',
+                function: function () {
+                    basepump.low();
 
-        //             var duration = Number(grow.get('duration', 'base'));
-        //             setTimeout(function () {
-        //                 basepump.high();
-        //             }, duration);
-        //         }
-        //     },
+                    var duration = Number(grow.get('duration', 'base'));
+                    setTimeout(function () {
+                        basepump.high();
+                    }, duration);
+                }
+            },
 
-        //     nutrient: {
-        //         name: 'Dose nutrient',
-        //         duration: 2000,
-        //         event: 'Dosed base',
-        //         function: function () {
-        //             nutrientpump.low();
+            nutrient: {
+                name: 'Dose nutrient',
+                duration: 2000,
+                event: 'Dosed base',
+                function: function () {
+                    nutrientpump.low();
 
-        //             var duration = Number(grow.get('duration', 'nutrient'));
-        //             setTimeout(function () {
-        //                 nutrientpump.high();
-        //             }, duration);
-        //         }
-        //     },
+                    var duration = Number(grow.get('duration', 'nutrient'));
+                    setTimeout(function () {
+                        nutrientpump.high();
+                    }, duration);
+                }
+            },
 
-        //     calibrate: {
-        //         name: 'Calibrate',
-        //         event: 'Calibrating',
-        //         function: function () {
-        //             // grow.call('acid');
+            calibrate: {
+                name: 'Calibrate',
+                event: 'Calibrating',
+                function: function () {
+                    // grow.call('acid');
 
-        //             // Do some math....
+                    // Do some math....
 
-        //             // Collect readings
-        //             grow.emitEvent('Calibration yet to be implemented');
-        //         }
-        //     }
-        // },
+                    // Collect readings
+                    // grow.emitEvent('Calibration yet to be implemented');
+                }
+            }
+        },
 
         events: {
             ec_data: {
@@ -134,10 +134,10 @@ board.on('ready', function start() {
                     // Push reading to the list of readings.
                     // eC_readings.push(eC_reading);
 
-                    grow.log({
-                        type: 'ec',
-                        value: eC_reading
-                    });
+                    // grow.log({
+                    //     type: 'ec',
+                    //     value: eC_reading
+                    // });
                 }
             },
 
@@ -170,10 +170,10 @@ board.on('ready', function start() {
                     console.log(pH_reading);
 
                     // Send data to the Grow-IoT app.
-                    grow.log({
-                      type: 'pH',
-                      value: pH_reading
-                    });
+                    // grow.log({
+                    //   type: 'pH',
+                    //   value: pH_reading
+                    // });
                 }
             }
         }
