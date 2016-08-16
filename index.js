@@ -106,6 +106,9 @@ board.on('ready', function start() {
             ec_data: {
                 name: 'Conductivity',
                 type: 'ec',
+                upperBound: 400,
+                lowerBound: 200,
+                ideal: 300,
                 template: 'sensor',
                 schedule: 'every 5 seconds',
                 function: function () {
@@ -132,10 +135,10 @@ board.on('ready', function start() {
                     // Push reading to the list of readings.
                     // eC_readings.push(eC_reading);
 
-                    // grow.log({
-                    //     type: 'ec',
-                    //     value: eC_reading
-                    // });
+                    grow.log({
+                        type: 'ec',
+                        value: eC_reading
+                    });
                 }
             },
 
@@ -167,73 +170,11 @@ board.on('ready', function start() {
 
                     console.log(pH_reading);
 
-                    // // Push reading to the list of readings.
-                    // pH_readings.push(pH_reading);
-
-                    // var min = Number(grow.get('min', 'ph_data'));
-                    // var max = Number(grow.get('max', 'ph_data'));
-                    // var state = grow.get('state', 'ph_data');
-                    // var numberOfReadings = Number(grow.get('readings', 'ph_data'));
-                    // var check = Hysteresis([min,max]);
-
-                    // // limit readings in memory to numberOfReadings
-                    // if (pH_readings.length > numberOfReadings) {
-                    //     pH_readings.shift();
-                    // }
-
-                    // // Here we take the average of the readings
-                    // // This is to prevent overdosing.
-                    // var average = 0;
-                    // for (var i = pH_readings.length - 1; i >= 0; i--) {
-                    //     if (pH_readings[i] !== undefined && pH_readings !== 0) {
-                    //         average += Number(pH_readings[i]);
-                    //     }
-                    // }
-
-                    // average = average / pH_readings.length;
-
-                    // // We don't dose unless there are a certain number of readings.
-                    // if (pH_readings.length > numberOfReadings) {
-                    //     console.log(average);
-                    //     console.log(check(average));
-
-                    //     if (average > min && average < max && state !== 'pH good') {
-                    //         grow.emitEvent('pH good')
-                    //             .set('state', 'pH good')
-                    //             .set('state', 'pH good', 'ph_data');
-                    //     }
-
-                    //     else if (average < min) {
-                    //         if (state !== 'pH low') {
-                    //             grow.emitEvent('pH low')
-                    //                 .set('state', 'pH low', 'ph_data')
-                    //                 .set('state', 'pH low');
-                    //         }
-
-                    //         // Dose base
-                    //         // grow.call('base');
-                    //     }
-
-                    //     else if (average > max) {
-                    //         if (state !== 'pH high') {
-                    //             grow.emitEvent('pH high')
-                    //                 .set('state', 'pH high', 'ph_data')
-                    //                 .set('state', 'pH high');
-                    //         }
-
-                    //         // Dose Acid
-                    //         // grow.call('acid');
-                    //     }
-
-                    //     // Reset pH_readings
-                    //     // pH_readings = [];
-                    // }
-
-                    // // Send data to the Grow-IoT app.
-                    // grow.log({
-                    //   type: 'pH',
-                    //   value: pH_reading
-                    // });
+                    // Send data to the Grow-IoT app.
+                    grow.log({
+                      type: 'pH',
+                      value: pH_reading
+                    });
                 }
             }
         }

@@ -44,6 +44,8 @@ See the following for more info on connecting to wifi: http://docs.getchip.com/c
 # Installing node.js
 To use Dr. Dose, we need to install node.js:
 
+Note: version 6 might be too far ahead....
+
 ```
 mkdir /tmp/node
 cd /tmp/node
