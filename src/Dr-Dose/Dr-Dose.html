@@ -1,0 +1,76 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
+
+<dom-module id="dr-dose">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <h2>[[name]]</h2>
+    <p>UUID: [[uuid]]</p>
+    <button on-click="toggleLight">Toggle light</button>
+    <button on-click="waterPlant">Water plant</button> for <input type="text" name="seconds" value="[[watertime]]" placeholder="Time in seconds">
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'dr-dose',
+
+      properties: {
+        name: {
+          type: String,
+          value: 'Smartpot'
+        },
+        watertime: {
+          type: Number,
+          value: 3
+        },
+        uuid: {
+          type: String,
+          value: ''
+        }
+      },
+
+      toggleLight: function(e) {
+        alert("Light toggled");
+        var req = new XMLHttpRequest();
+
+        req.open('GET', '/light/', true);
+
+        req.onload = function(e) {
+          if (req.readyState == 4 && req.status == 200) {
+            if (req.status == 200) {
+              var response = JSON.parse(req.responseText);
+              statusNode.textContent = response.on ? 'ON' : 'OFF';
+            } else { 
+              console.log('Error'); 
+            }
+          }
+        }
+        req.send(null);
+
+      },
+
+      waterPlant: function(e) {
+        var req = new XMLHttpRequest();
+
+        req.open('GET', '/waterpump/', true);
+
+        req.onload = function(e) {
+          if (req.readyState == 4 && req.status == 200) {
+            if (req.status == 200) {
+              var response = JSON.parse(req.responseText);
+              statusNode.textContent = response.on ? 'ON' : 'OFF';
+            } else { 
+              console.log('Error'); 
+            }
+          }
+        }
+        req.send(null);
+      }
+    });
+  </script>
+</dom-module>
