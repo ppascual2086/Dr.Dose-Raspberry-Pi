@@ -10,11 +10,16 @@
     </style>
     <h2>[[name]]</h2>
     <p>UUID: [[uuid]]</p>
-    <button on-click="toggleLight">Toggle light</button>
+
+    <button on-click="Dose">Toggle light</button>
     <button on-click="waterPlant">Water plant</button> for <input type="text" name="seconds" value="[[watertime]]" placeholder="Time in seconds">
   </template>
+  
 
   <script>
+    // What does this create? 
+    // We need to bind this with Grow.js...
+
     Polymer({
 
       is: 'dr-dose',
@@ -22,11 +27,23 @@
       properties: {
         name: {
           type: String,
-          value: 'Smartpot'
+          value: 'Dr. Dose'
         },
-        watertime: {
+        description: {
+          type: String,
+          value: 'Dr. Dose will keep your pH balanced and your nutrients at optimal levels.'
+        },
+        ph_target: {
           type: Number,
-          value: 3
+          value: 6.1
+        },
+        ph_upperBound: {
+          type: Number,
+          value: 6.2
+        },
+        ph_lowerBound: {
+          type: Number,
+          value: 5.9
         },
         uuid: {
           type: String,
@@ -35,22 +52,6 @@
       },
 
       toggleLight: function(e) {
-        alert("Light toggled");
-        var req = new XMLHttpRequest();
-
-        req.open('GET', '/light/', true);
-
-        req.onload = function(e) {
-          if (req.readyState == 4 && req.status == 200) {
-            if (req.status == 200) {
-              var response = JSON.parse(req.responseText);
-              statusNode.textContent = response.on ? 'ON' : 'OFF';
-            } else { 
-              console.log('Error'); 
-            }
-          }
-        }
-        req.send(null);
 
       },
 
