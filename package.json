@@ -15,5 +15,9 @@
     "johnny-five": "^0.10.0",
     "chip-io": "^2.0.0",
     "raspi-io": "^6.1.0"
+  },
+  "devDependencies": {
+    "bower": "^1.7.9",
+    "polymer-cli": "^0.14.0"
   }
 }

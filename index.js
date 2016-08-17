@@ -93,7 +93,7 @@ board.on('ready', function start() {
                 name: 'Calibrate',
                 event: 'Calibrating',
                 function: function () {
-                    // grow.call('acid');
+                    grow.call('acid');
 
                     // Do some math....
 
@@ -130,16 +130,6 @@ board.on('ready', function start() {
                     });
 
                     console.log(eC_reading);
-
-                    // TODO: get EC reading.
-
-                    // Push reading to the list of readings.
-                    // eC_readings.push(eC_reading);
-
-                    // grow.log({
-                    //     type: 'ec',
-                    //     value: eC_reading
-                    // });
                 }
             },
 
@@ -170,12 +160,6 @@ board.on('ready', function start() {
                     });
 
                     console.log(pH_reading);
-
-                    // Send data to the Grow-IoT app.
-                    // grow.log({
-                    //   type: 'pH',
-                    //   value: pH_reading
-                    // });
                 }
             }
         }
