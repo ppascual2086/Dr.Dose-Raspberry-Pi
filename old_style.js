@@ -1,4 +1,4 @@
-var GrowInstance = require('Thing.js');
+var GrowInstance = require('Grow.js');
 var raspio = require('raspi-io');
 var five = require('johnny-five');
 var ascii = require('ascii-codes');
@@ -31,14 +31,21 @@ board.on('ready', function start() {
     // See Johnny-Five docs: http://johnny-five.io
     this.i2cConfig();
 
-    // Create a new grow instance. Connects by default to localhost:3000
-    // Create a new grow instance.
+    // Create a new grow instance and connect to https://grow.commongarden.org
     var grow = new GrowInstance({
+        host: "grow.commongarden.org",
+        tlsOpts: {
+            tls: {
+                servername: "galaxy.meteor.com"
+            }
+        },
+        port: 443,
+        ssl: true,
         name: 'Dr. Dose', // The display name for the thing.
         desription: 'Dr. Dose keeps your pH balanced.',
 
         // The username of the account you want this device to be added to.
-        username: 'jake2@gmail.com',
+        username: 'jake.hartnell@gmail.com',
 
         // Properties can be updated by the API
         properties: {
