@@ -104,12 +104,10 @@ board.on('ready', function start() {
                         }
                     });
 
-                    console.log(pH_reading);
-                    console.log('Is valid: ' + ispH(pH_reading));
-
                     // Filter out non-readings
                     if (ispH(pH_reading)) {
                         // // Push reading to the list of readings.
+                        console.log(pH_reading);
                         pH_readings.push(pH_reading);
 
                         var min = Number(grow.get('min', 'ph_data'));
@@ -127,9 +125,12 @@ board.on('ready', function start() {
                         // This is to prevent overdosing.
                         var averageReading = average(pH_readings);
 
+                        console.log(averageReading);
+                        console.log(pH_readings.length);
+
                         // We don't dose unless there are a certain number of readings.
                         if (pH_readings.length > numberOfReadings) {
-                            console.log(averageReading);
+                            // console.log(averageReading);
                             console.log(check(averageReading));
 
                             if (averageReading > min && averageReading < max && state !== 'pH good') {
