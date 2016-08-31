@@ -1,0 +1,29 @@
+<html><head><link rel="import" href="../../bower_components/polymer/polymer.html">
+
+</head><body><dom-module id="dr-dose">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-12">
+          <h2>[[name]]</h2>
+          <p>[[description]]</p>
+          <p>[[state]]</p>
+          <label for="duration">Dose Duration (in milliseconds)</label>
+          <input type="text" name="duration" value="{{duration}}">
+          <div>
+            <button class="btn btn-default" on-click="acid">Dose Acid</button>
+            <button class="btn btn-default" on-click="base">Dose Base</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </template>
+  
+  <script>Polymer({is:"dr-dose",properties:{name:{type:String,value:"Dr. Dose"},description:{type:String,value:"Dr. Dose will keep your pH balanced."},owner_email:{type:String,value:"jake.hartnell@gmail.com",readonly:!0},state:{type:String,value:null,readonly:!0},duration:{type:Number,value:1e3},pH_reading:{type:Number,value:null,readonly:!0}},acid:function(e){var n=new XMLHttpRequest;n.open("GET","/acid/?duration=1000",!0),n.send(null)},base:function(e){var n=new XMLHttpRequest;n.open("GET","/base/?duration=1000",!0),n.send(null)},read_Ph:function(){return 5.9}});</script>
+</dom-module>
+</body></html>

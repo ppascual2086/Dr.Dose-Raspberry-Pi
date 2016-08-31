@@ -1,5 +1,4 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
 
 <dom-module id="dr-dose">
   <template>
@@ -8,22 +7,26 @@
         display: block;
       }
     </style>
-    <h2>[[name]]</h2>
-    <p>UUID: [[uuid]]</p>
-
-    <button on-click="Dose">Toggle light</button>
-    <button on-click="waterPlant">Water plant</button> for <input type="text" name="seconds" value="[[watertime]]" placeholder="Time in seconds">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-12">
+          <h2>[[name]]</h2>
+          <p>[[description]]</p>
+          <p>[[state]]</p>
+          <label for="duration">Dose Duration (in milliseconds)</label>
+          <input type="text" name="duration" value="{{duration}}">
+          <div>
+            <button class="btn btn-default" on-click="acid">Dose Acid</button>
+            <button class="btn btn-default" on-click="base">Dose Base</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </template>
   
-
   <script>
-    // What does this create? 
-    // We need to bind this with Grow.js...
-
     Polymer({
-
       is: 'dr-dose',
-
       properties: {
         name: {
           type: String,
@@ -31,46 +34,71 @@
         },
         description: {
           type: String,
-          value: 'Dr. Dose will keep your pH balanced and your nutrients at optimal levels.'
+          value: 'Dr. Dose will keep your pH balanced.'
         },
-        ph_target: {
-          type: Number,
-          value: 6.1
-        },
-        ph_upperBound: {
-          type: Number,
-          value: 6.2
-        },
-        ph_lowerBound: {
-          type: Number,
-          value: 5.9
-        },
-        uuid: {
+        owner_email: {
           type: String,
-          value: ''
+          value: 'jake.hartnell@gmail.com',
+          readonly: true
+        },
+        state: {
+          type: String,
+          value: null,
+          readonly: true
+        },
+        duration: {
+          type: Number,
+          value: 1000
+        },
+        // Outputs are readonly
+        pH_reading: {
+          type: Number,
+          value: null,
+          readonly: true
         }
       },
 
-      toggleLight: function(e) {
-
-      },
-
-      waterPlant: function(e) {
+      // TODO: magically make front end versions of these functions that call for the action on the device.
+      acid: function(e) {
         var req = new XMLHttpRequest();
 
-        req.open('GET', '/waterpump/', true);
+        req.open('GET', '/acid/?duration=1000', true);
 
-        req.onload = function(e) {
-          if (req.readyState == 4 && req.status == 200) {
-            if (req.status == 200) {
-              var response = JSON.parse(req.responseText);
-              statusNode.textContent = response.on ? 'ON' : 'OFF';
-            } else { 
-              console.log('Error'); 
-            }
-          }
-        }
+        // req.onload = function(e) {
+        //   if (req.readyState == 4 && req.status == 200) {
+        //     if (req.status == 200) {
+        //       var response = JSON.parse(req.responseText);
+        //       statusNode.textContent = response.on ? 'ON' : 'OFF';
+        //     } else { 
+        //       console.log('Error'); 
+        //     }
+        //   }
+        // }
         req.send(null);
+
+      },
+
+      base: function(e) {
+        var req = new XMLHttpRequest();
+
+        // send water time param.
+        req.open('GET', '/base/?duration=1000', true);
+
+        // req.onload = function(e) {
+        //   if (req.readyState == 4 && req.status == 200) {
+        //     if (req.status == 200) {
+        //       var response = JSON.parse(req.responseText);
+        //       statusNode.textContent = response.on ? 'ON' : 'OFF';
+        //     } else { 
+        //       console.log('Error'); 
+        //     }
+        //   }
+        // }
+        req.send(null);
+      },
+
+      read_Ph: function () {
+        return 5.9;
       }
     });
   </script>
