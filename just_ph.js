@@ -83,10 +83,10 @@ board.on('ready', function start() {
                 name: 'pH',
                 type: 'pH',
                 template: 'sensor',
-                min: 5.9,
-                max: 6.0,
+                min: 6.9,
+                max: 7.0,
                 readings: 20, // The readings before evaluation.
-                schedule: 'every 5 seconds',
+                schedule: 'every 2 seconds',
                 function: function () {
                     // Request a reading
                     board.i2cWrite(0x63, [0x52, 0x00]);
