@@ -4,6 +4,8 @@
 * [Conductivity Sensor (Atlas Scientific)]()
 * Dosing pumps... these may vary depending on the size of your water resevoir.
 
+... more detail instructions plus video coming soon.
+
 # Getting started.
 Follow these excellent instructions for getting your Raspberry Pi setup and connected:
 https://github.com/nebrius/raspi-io/wiki/Getting-a-Raspberry-Pi-ready-for-NodeBots
