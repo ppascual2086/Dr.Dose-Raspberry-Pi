@@ -5,6 +5,7 @@
 * Dosing pumps... these may vary depending on the size of your water resevoir.
 
 # Getting started.
+Follow these excellent instructions for getting your Raspberry Pi setup and connected:
 https://github.com/nebrius/raspi-io/wiki/Getting-a-Raspberry-Pi-ready-for-NodeBots
 
 # Dr. Dose
@@ -15,7 +16,7 @@ git clone https://github.com/CommonGarden/Dr.Dose-Raspberry-Pi
 cd Dr.Dose-Raspberry-Pi
 npm install
 ```
-Note if this fails, sometimes it's because the internal clock of your new chip is off. Type `date` into the command line. If it is wrong you can manually reset it with:
+Note if this fails, sometimes it's because the internal clock of your new Raspberry pi is off. Type `date` into the command line. If it is wrong you can manually reset it with:
 
 `sudo date --set Year-Month-Day`
 `sudo date --set hour:minute:second`

@@ -130,7 +130,7 @@ board.on('ready', function start() {
 
                         // We don't dose unless there are a certain number of readings.
                         if (pH_readings.length > numberOfReadings) {
-                            // console.log(averageReading);
+                            console.log('works');
                             console.log(check(averageReading));
 
                             if (averageReading > min && averageReading < max && state !== 'pH good') {

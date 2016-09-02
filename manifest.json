@@ -1,7 +1,0 @@
-{
-  "name": "Dr-Dose-Raspberry-Pi",
-  "short_name": "Dr-Dose-Raspberry-Pi",
-  "description": "Dr-Dose is a robot that balances conductivity and pH.",
-  "start_url": "/",
-  "display": "standalone"
-}
