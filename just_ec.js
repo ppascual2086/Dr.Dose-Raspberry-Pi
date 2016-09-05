@@ -91,7 +91,7 @@ board.on('ready', function start() {
                         }
                     });
 
-                    console.log(eC_reading);
+                    parseEC(eC_reading);
 
                     // // Push reading to the list of readings.
                     // eC_readings.push(eC_reading);
@@ -123,32 +123,26 @@ board.on('ready', function start() {
                     //     console.log(average);
                     //     console.log(check(average));
 
-                    //     if (average > min && average < max && state !== 'pH good') {
-                    //         grow.emitEvent('pH good')
-                    //             .set('state', 'pH good')
-                    //             .set('state', 'pH good', 'ec_data');
+                    //     if (average > min && average < max && state !== 'Conductivity good') {
+                    //         grow.emitEvent('Conductivity good')
+                    //             .set('state', 'Conductivity good');
                     //     }
 
                     //     else if (average < min) {
-                    //         if (state !== 'pH low') {
-                    //             grow.emitEvent('pH low')
-                    //                 .set('state', 'pH low', 'ec_data')
-                    //                 .set('state', 'pH low');
+                    //         if (state !== 'Conductivity low') {
+                    //             grow.emitEvent('Conductivity low')
+                    //                 .set('state', 'Conductivity low');
                     //         }
 
-                    //         // Dose base
-                    //         grow.call('base');
+                    //         // Dose nutrient
+                    //         grow.call('nutrient');
                     //     }
 
                     //     else if (average > max) {
-                    //         if (state !== 'pH high') {
-                    //             grow.emitEvent('pH high')
-                    //                 .set('state', 'pH high', 'ec_data')
-                    //                 .set('state', 'pH high');
+                    //         if (state !== 'Conductivity high') {
+                    //             grow.emitEvent('Conductivity high, add more water.')
+                    //                 .set('state', 'Conductivity high');
                     //         }
-
-                    //         // Dose Acid
-                    //         grow.call('acid');
                     //     }
 
                     //     // Reset eC_readings
@@ -157,7 +151,7 @@ board.on('ready', function start() {
 
                     // // Send data to the Grow-IoT app.
                     // grow.log({
-                    //   type: 'pH',
+                    //   type: 'ec',
                     //   value: eC_reading
                     // });
                 }
@@ -168,7 +162,7 @@ board.on('ready', function start() {
 
 // Parse the Electrical conductivity value from the sensor reading.
 function parseEC (reading) {
-    // TODO
+    console.log(reading.substring(0, 3));
 }
 
 function average (listOfReadings) {
