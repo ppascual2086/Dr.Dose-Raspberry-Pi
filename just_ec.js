@@ -67,9 +67,10 @@ board.on('ready', function start() {
             ec_data: {
                 name: 'Conductivity',
                 type: 'ec',
+                template: 'sensor',
                 min: 400,
                 max: 800,
-                template: 'sensor',
+                readings: 20,
                 schedule: 'every 7 seconds',
                 function: function () {
                     // Request a reading
