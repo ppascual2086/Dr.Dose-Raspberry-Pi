@@ -8,10 +8,6 @@ var board = new five.Board({
   io: new raspio()
 });
 
-var nano = new five.Board();
-
-// NOT WORKING QUITE YET DUE TO HARDWARE ISSUES: https://github.com/CommonGarden/Dr.Dose-Raspberry-Pi/issues/4
-
 // When board emits a 'ready' event run this start function.
 board.on('ready', function start() {
     // Declare variables and pins
