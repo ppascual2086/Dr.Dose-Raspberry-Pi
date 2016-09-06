@@ -2,6 +2,7 @@ var GrowInstance = require('Grow.js');
 var raspio = require('raspi-io');
 var five = require('johnny-five');
 var ascii = require('ascii-codes');
+var Hysteresis = require('hysteresis');
 
 // Create a new board object
 var board = new five.Board({
