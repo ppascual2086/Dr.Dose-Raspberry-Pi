@@ -67,7 +67,7 @@ board.on('ready', function start() {
                 name: 'Conductivity',
                 type: 'ec',
                 min: 400,
-                max: 200,
+                max: 800,
                 template: 'sensor',
                 schedule: 'every 7 seconds',
                 function: function () {
@@ -87,69 +87,71 @@ board.on('ready', function start() {
                         }
                     });
 
-                    parseEC(eC_reading);
+                    eC_reading = parseEC(eC_reading);
 
                     // // Push reading to the list of readings.
-                    // eC_readings.push(eC_reading);
+                    if (eC_reading) {
+                        eC_readings.push(eC_reading);
 
-                    // var min = Number(grow.get('min', 'ec_data'));
-                    // var max = Number(grow.get('max', 'ec_data'));
-                    // var state = grow.get('state', 'ec_data');
-                    // var numberOfReadings = Number(grow.get('readings', 'ec_data'));
-                    // var check = Hysteresis([min,max]);
+                        var min = Number(grow.get('min', 'ec_data'));
+                        var max = Number(grow.get('max', 'ec_data'));
+                        var state = grow.get('state', 'ec_data');
+                        var numberOfReadings = Number(grow.get('readings', 'ec_data'));
+                        var check = Hysteresis([min,max]);
 
-                    // // limit readings in memory to numberOfReadings
-                    // if (eC_readings.length > numberOfReadings) {
-                    //     eC_readings.shift();
-                    // }
+                        // limit readings in memory to numberOfReadings
+                        if (eC_readings.length > numberOfReadings) {
+                            eC_readings.shift();
+                        }
 
-                    // // Here we take the average of the readings
-                    // // This is to prevent overdosing.
-                    // var average = 0;
-                    // for (var i = eC_readings.length - 1; i >= 0; i--) {
-                    //     if (eC_readings[i] !== undefined && eC_readings !== 0) {
-                    //         average += Number(eC_readings[i]);
-                    //     }
-                    // }
+                        // Here we take the average of the readings
+                        // This is to prevent overdosing.
+                        var average = 0;
+                        for (var i = eC_readings.length - 1; i >= 0; i--) {
+                            if (eC_readings[i] !== undefined && eC_readings !== 0) {
+                                average += Number(eC_readings[i]);
+                            }
+                        }
 
-                    // average = average / eC_readings.length;
+                        average = average / eC_readings.length;
 
-                    // // We don't dose unless there are a certain number of readings.
-                    // if (eC_readings.length > numberOfReadings) {
-                    //     console.log(average);
-                    //     console.log(check(average));
+                        // We don't dose unless there are a certain number of readings.
+                        if (eC_readings.length > numberOfReadings) {
+                            console.log(average);
+                            console.log(check(average));
 
-                    //     if (average > min && average < max && state !== 'Conductivity good') {
-                    //         grow.emitEvent('Conductivity good')
-                    //             .set('state', 'Conductivity good');
-                    //     }
+                            if (average > min && average < max && state !== 'Conductivity good') {
+                                grow.emitEvent('Conductivity good')
+                                    .set('state', 'Conductivity good');
+                            }
 
-                    //     else if (average < min) {
-                    //         if (state !== 'Conductivity low') {
-                    //             grow.emitEvent('Conductivity low')
-                    //                 .set('state', 'Conductivity low');
-                    //         }
+                            else if (average < min) {
+                                if (state !== 'Conductivity low') {
+                                    grow.emitEvent('Conductivity low')
+                                        .set('state', 'Conductivity low');
+                                }
 
-                    //         // Dose nutrient
-                    //         grow.call('nutrient');
-                    //     }
+                                // Dose nutrient
+                                grow.call('nutrient');
+                            }
 
-                    //     else if (average > max) {
-                    //         if (state !== 'Conductivity high') {
-                    //             grow.emitEvent('Conductivity high, add more water.')
-                    //                 .set('state', 'Conductivity high');
-                    //         }
-                    //     }
+                            else if (average > max) {
+                                if (state !== 'Conductivity high') {
+                                    grow.emitEvent('Conductivity high, add more water.')
+                                        .set('state', 'Conductivity high');
+                                }
+                            }
 
-                    //     // Reset eC_readings
-                    //     eC_readings = [];
-                    // }
+                            // Reset eC_readings
+                            eC_readings = [];
+                        }
 
-                    // // Send data to the Grow-IoT app.
-                    // grow.log({
-                    //   type: 'ec',
-                    //   value: eC_reading
-                    // });
+                        // Send data to the Grow-IoT app.
+                        grow.log({
+                          type: 'ec',
+                          value: eC_reading
+                        });
+                    }
                 }
             }
         }
@@ -158,7 +160,11 @@ board.on('ready', function start() {
 
 // Parse the Electrical conductivity value from the sensor reading.
 function parseEC (reading) {
-    console.log(reading);
+    if (typeof reading === 'string') {
+        return reading.split(',')[0];
+    } else {
+        return false;
+    }
 }
 
 function average (listOfReadings) {
