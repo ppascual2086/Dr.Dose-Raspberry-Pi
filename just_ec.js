@@ -158,7 +158,7 @@ board.on('ready', function start() {
 
 // Parse the Electrical conductivity value from the sensor reading.
 function parseEC (reading) {
-    console.log(reading.substring(0, 3));
+    console.log(reading);
 }
 
 function average (listOfReadings) {
