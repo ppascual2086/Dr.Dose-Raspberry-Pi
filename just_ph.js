@@ -101,7 +101,7 @@ try {
                                         bytelist.push(ascii.symbolForDecimal(bytes[i]));
                                     }
                                 }
-                                pH_reading = Number(bytelist.join('')).toFixed(2);
+                                pH_reading = bytelist.join('');
                             }
                         });
 
