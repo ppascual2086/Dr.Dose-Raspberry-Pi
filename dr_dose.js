@@ -18,8 +18,8 @@ try {
             eC_reading,
         	eC_readings = [],
             acidpump = new five.Pin('P1-11'),
-            nutrientpump = new five.Pin('P1-11'),
-            basepump = new five.Pin('P1-12');
+            basepump = new five.Pin('P1-12'),
+            nutrientpump = new five.Pin('P1-13');
 
         // Hack: Relays are inversed... make sure pumps are off.
         // Better hardware could take care of this... I'm not an electrical engineer.
@@ -125,6 +125,8 @@ try {
 
                         eC_reading = parseEC(eC_reading);
 
+                        console.log(eC_reading);
+
                         // // Push reading to the list of readings.
                         if (eC_reading) {
                             eC_readings.push(eC_reading);
@@ -140,28 +142,17 @@ try {
                                 eC_readings.shift();
                             }
 
-                            // Here we take the average of the readings
-                            // This is to prevent overdosing.
-                            var average = 0;
-                            for (var i = eC_readings.length - 1; i >= 0; i--) {
-                                if (eC_readings[i] !== undefined && eC_readings !== 0) {
-                                    average += Number(eC_readings[i]);
-                                }
-                            }
-
-                            average = average / eC_readings.length;
+                            var EC_reading_average = average(eC_readings);
 
                             // We don't dose unless there are a certain number of readings.
                             if (eC_readings.length > numberOfReadings) {
-                                console.log(average);
-                                console.log(check(average));
 
-                                if (average > min && average < max && state !== 'Conductivity good') {
+                                if (EC_reading_average > min && EC_reading_average < max && state !== 'Conductivity good') {
                                     grow.emitEvent('Conductivity good')
                                         .set('state', 'Conductivity good');
                                 }
 
-                                else if (average < min) {
+                                else if (EC_reading_average < min) {
                                     if (state !== 'Conductivity low') {
                                         grow.emitEvent('Conductivity low')
                                             .set('state', 'Conductivity low');
@@ -171,7 +162,7 @@ try {
                                     grow.call('nutrient');
                                 }
 
-                                else if (average > max) {
+                                else if (EC_reading_average > max) {
                                     if (state !== 'Conductivity high') {
                                         grow.emitEvent('Conductivity high, add more water.')
                                             .set('state', 'Conductivity high');
@@ -218,8 +209,6 @@ try {
 
                         // Filter out non-readings
                         if (ispH(pH_reading)) {
-                            // // Push reading to the list of readings.
-                            console.log(pH_reading);
                             pH_readings.push(pH_reading);
 
                             var min = Number(grow.get('min', 'ph_data'));
@@ -233,17 +222,12 @@ try {
                                 pH_readings.shift();
                             }
 
-                            // Here we take the average of the readings
-                            // This is to prevent overdosing.
                             var averageReading = average(pH_readings);
-
-                            console.log(averageReading);
-                            console.log(pH_readings.length);
 
                             // We don't dose unless there are a certain number of readings.
                             if (pH_readings.length >= numberOfReadings) {
-                                console.log('works');
-                                console.log(check(averageReading));
+                                // console.log('works');
+                                // console.log(check(averageReading));
 
                                 if (averageReading > min && averageReading < max && state !== 'pH good') {
                                     grow.set('state', 'pH good');
